@@ -3,7 +3,9 @@ from .models import Question
 
 
 def index(request):
-    return HttpResponse(f"Hello, this is polls index page")
+    queryset = Question.objects.order_by('pub_date')[:5]
+    recent_questions = ', '.join([q.question_text for q in queryset])
+    return HttpResponse(recent_questions)
 
 
 def detail(request, question_id):
